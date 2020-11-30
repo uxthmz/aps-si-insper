@@ -1,0 +1,199 @@
+Private Sub CommandButton1_Click()
+
+Dim x As Integer
+Dim y As Single
+Dim a As Single
+Dim b As Single
+Dim n As Integer
+Dim sx As Integer
+Dim sy As Single
+Dim sxy As Single
+Dim sx2 As Single
+Dim mx As Single
+Dim my As Single
+Dim i As Integer
+
+n = TextBox1.Value
+a = 0
+b = 0
+sx = 0
+sxy = 0
+sy = 0
+sx2 = 0
+
+For i = 2 To n
+   sx = sx + Cells(i, 2)
+Next i
+
+For i = 2 To n
+   sy = sy + Cells(i, 3)
+Next i
+
+For i = 2 To n
+   sx2 = sx2 + Cells(i, 2) ^ 2
+Next i
+
+For i = 2 To n
+   x = Cells(i, 2)
+   y = Cells(i, 3)
+   sxy = sxy + (x * y)
+Next i
+
+b = (n * sxy - sx * sy) / (n * sx2 - sx ^ 2)
+mx = sx / (n - 1)
+my = sy / (n - 1)
+a = my - (b * mx)
+
+TextBox2.Value = a
+TextBox3.Value = b
+
+For i = 2 To n
+   x = Cells(i, 2)
+   Cells(i, 4) = a + (b * x)
+Next i
+
+For i = 2 To n
+ Worksheets("CÁLCULO").Cells(i, 1) = Worksheets("Planilha1").Cells(i, 4)
+Next i
+
+End Sub
+
+Private Sub CommandButton2_Click()
+
+Dim i As Integer
+Dim n As Integer
+
+n = TextBox1.Value
+
+For i = 2 To n
+   Cells(i, 5) = Abs(Cells(i, 3) - Cells(i, 4))
+Next i
+
+For i = 2 To n
+   Worksheets("CÁLCULO").Cells(i, 2) = Worksheets("Planilha1").Cells(i, 5)
+Next i
+
+End Sub
+
+Private Sub CommandButton3_Click()
+
+Dim n As Integer
+Dim i As Integer
+Dim max As Single
+
+max = Cells(2, 3)
+n = TextBox1.Value
+
+For i = 2 To n
+   If Cells(i, 3) > max Then
+   max = Cells(i, 3)
+   End If
+Next i
+
+TextBox4.Value = max
+
+End Sub
+
+Private Sub CommandButton4_Click()
+Dim n As Integer
+Dim i As Integer
+Dim min As Single
+
+min = Cells(2, 3)
+n = TextBox1.Value
+
+For i = 2 To n
+   If Cells(i, 3) < min Then
+   min = Cells(i, 3)
+   End If
+Next i
+
+TextBox5.Value = min
+
+End Sub
+
+Private Sub CommandButton5_Click()
+
+Dim dp As Single
+Dim sm1 As Single
+Dim sm2 As Single
+Dim sm3 As Single
+Dim a As Single
+Dim b As Single
+Dim s As Single
+Dim med As Single
+Dim n As Integer
+Dim i As Integer
+Dim j As Integer
+
+n = TextBox1.Value
+s = 0
+
+For i = 2 To n
+   s = s + Cells(i, 5)
+Next i
+
+med = s / (n - 1)
+s = 0
+
+For i = 2 To n
+  s = s + (Cells(i, 5) - med) ^ 2
+Next i
+  
+dp = Sqr(s / (n - 1))
+
+Randomize
+
+For j = 6 To 105
+   For i = 2 To n
+   Cells(i, j) = Worksheets("Planilha1").Cells(i, 4) + (-3 * dp + 6 * dp * Rnd)
+   Next i
+Next j
+   
+For j = 6 To 105
+  For i = 2 To n
+   Worksheets("simulaçao").Cells(i, j - 5) = Worksheets("Planilha1").Cells(i, j)
+  Next i
+Next j
+
+End Sub
+
+Private Sub CommandButton6_Click()
+
+Dim m As Single
+Dim desv As Single
+Dim soma As Single
+Dim j As Integer
+Dim n As Integer
+
+n = TextBox1.Value
+soma = 0
+
+For j = 6 To 105
+   soma = soma + Cells(n, j)
+Next j
+
+m = soma / 100
+soma = 0
+
+For j = 6 To 105
+   soma = soma + (Cells(n, j) - m) ^ 2
+Next j
+   
+desv = Sqr(soma / n)
+
+TextBox6.Value = m - (2 * desv) / Sqr(100)
+TextBox7.Value = m + (2 * desv) / Sqr(100)
+
+If Cells(n, 3) < TextBox6.Value Then
+   TextBox8.Value = "comprar"
+ElseIf Cells(n, 3) > TextBox6.Value Then
+   TextBox8.Value = "vender"
+Else
+   TextBox8.Value = "manter"
+End If
+   
+End Sub
+
+'Grupo 20 SI - Rodrigo Souza, Thomaz Edmundo, Victor Orsi, Pedro Alcantara Queiroz
+
