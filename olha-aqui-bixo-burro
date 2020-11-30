@@ -1,0 +1,21 @@
+#hey dudes, como tá o trabalho com o marcão? ridiculo né
+
+#então, aqui tem o codigo de tudo que vcs precisarão, na epoca fiz minha aps com a TOTS3.SA
+#se quiserem mandar ver com ela tbm, pode por quente, o bom é que ngm usa essa merda dessa ação ridicula
+#mas cuidado, não copia os texto, só os codigo
+#se precisarem de ajuda com o word @_thmz no insta
+
+import xlrd
+importy numpy as ny
+wb = xlrd.open_workbook("APS4.xlsm")
+p = wb.sheet_by_index(0)
+close = p.col_values(1)
+close.vet = ny.array(close)
+#variavel = função lista -> vetor
+#em vez de eu imprimir como lista, eu passo para vetor e imprimo em numpy
+ret = (CloseVet[1:] - CloseVet[:1])/Closevet[:1]
+#elementos tem que ser da mesma 'quantidade' mas não necessáriamente precisar estar contidos no mesmo vetor
+print(closeVet[1:-1])
+#percorre excuindo o ultimo
+print(closevet[:-1])
+#percorre tudo
